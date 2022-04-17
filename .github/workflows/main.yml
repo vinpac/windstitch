@@ -45,11 +45,12 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: '16.x'
+          registry-url: https://registry.npmjs.org/
 
       - name: Install deps and build (with cache)
         uses: bahmutov/npm-install@v1
 
       - name: Publish to NPM
-        run: npm publish
-        env:
-          NODE_AUTH_TOKEN: ${{secrets.npm_token}}
+        uses: JS-DevTools/npm-publish@v1
+        with:
+          token: ${{ secrets.NPM_TOKEN }}
