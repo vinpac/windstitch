@@ -1,5 +1,7 @@
 ![Stichwind](https://github.com/vinpac/stichwind/blob/main/docs/static/img/banner.jpg?raw=true)
 
+# Stichwind
+
 Stitchwind is a **1.2kB**, Simple Styling Library that helps you set **when** a className should be applied to a component.
 
 By providing Powerful Types through forward declarations, Stichwind aims to be simple yet powerful by limiting itself to be a organizer API, letting Tailwind handle the styling part.
