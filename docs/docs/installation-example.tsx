@@ -1,5 +1,5 @@
 import React from 'react';
-import { w, W, group } from '../../dist';
+import { w, W } from 'stichwind';
 import { useColorMode } from '@docusaurus/theme-common';
 
 const Container = w.div('', {
@@ -57,17 +57,16 @@ type ButtonProps = W.Infer<typeof Button>;
 const isVisuallyEven = (value: boolean) =>
   value ? 'bg-gray-100 dark:bg-gray-900' : 'bg-gray-200 dark:bg-gray-800';
 
-const s = group({
-  Td: w.td('px-2 py-2', {
-    variants: {
-      isVisuallyEven,
-    },
-  }),
-  Th: w.th('', {
-    variants: {
-      isVisuallyEven,
-    },
-  }),
+const Td = w.td('px-2 py-2', {
+  variants: {
+    isVisuallyEven,
+  },
+});
+
+const Th = w.th('', {
+  variants: {
+    isVisuallyEven,
+  },
 });
 
 const Example = () => {
@@ -78,27 +77,27 @@ const Example = () => {
         <table className="w-full">
           <thead>
             <tr className="px-2">
-              <s.Th isVisuallyEven={false} />
+              <Th isVisuallyEven={false} />
               {Object.keys(variants.size).map((size, i) => (
-                <s.Th key={size} isVisuallyEven={i % 2 === 0}>
+                <Th key={size} isVisuallyEven={i % 2 === 0}>
                   {size}
-                </s.Th>
+                </Th>
               ))}
             </tr>
           </thead>
           <tbody>
             {Object.keys(variants.color).map(color => (
               <tr key={color}>
-                <s.Th isVisuallyEven={false}>{color}</s.Th>
+                <Th isVisuallyEven={false}>{color}</Th>
                 {Object.keys(variants.size).map((size, i) => (
-                  <s.Td key={size} isVisuallyEven={i % 2 === 0}>
+                  <Td key={size} isVisuallyEven={i % 2 === 0}>
                     <Button
                       color={color as ButtonProps['color']}
                       size={size as ButtonProps['size']}
                     >
                       Button
                     </Button>
-                  </s.Td>
+                  </Td>
                 ))}
               </tr>
             ))}

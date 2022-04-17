@@ -105,14 +105,9 @@ const Button = w.button(
 
 ### Adding `displayName`
 
-You can manually set a `displayName` to your component or use the `group` function to create multiple components with automatic `displayName`.
+Now, it's recommended to manually set a `displayName` to your component.
 
 ```jsx
-const Button = w.button('text-md')
-Button.displayName = 'Button'
-// or
-const s = group({ Button: w.button('text-md') })
-<s.Button />
+const Button = w.button('text-md');
+Button.displayName = 'Button';
 ```
-
-Refer to the [API page](/docs/api) to learn more about each of them.
