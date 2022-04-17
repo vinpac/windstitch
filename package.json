@@ -33,16 +33,16 @@
     "singleQuote": true,
     "trailingComma": "es5"
   },
-  "name": "wind",
+  "name": "stichwind",
   "author": "Vinicius Pacheco",
-  "module": "dist/wind.esm.js",
+  "module": "dist/stichwind.esm.js",
   "size-limit": [
     {
-      "path": "dist/wind.cjs.production.min.js",
+      "path": "dist/stichwind.cjs.production.min.js",
       "limit": "10 KB"
     },
     {
-      "path": "dist/wind.esm.js",
+      "path": "dist/stichwind.esm.js",
       "limit": "10 KB"
     }
   ],
