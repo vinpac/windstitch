@@ -6936,6 +6936,11 @@ std-env@^3.0.1:
   resolved "https://registry.yarnpkg.com/std-env/-/std-env-3.1.1.tgz#1f19c4d3f6278c52efd08a94574a2a8d32b7d092"
   integrity sha512-/c645XdExBypL01TpFKiG/3RAa/Qmu+zRi0MwAmrdEkwHNuN0ebo8ccAXBBDa5Z0QOJgBskUIbuCK91x0sCVEw==
 
+stichwind@^0.1.0:
+  version "0.1.0"
+  resolved "https://registry.yarnpkg.com/stichwind/-/stichwind-0.1.0.tgz#d1c9c342faea5dbaae68d26bd2e590ba0a866f15"
+  integrity sha512-ddtxdNG5TNxkIAu/I/uqMX4h1IS14nty/f/X8mWuMjOmIjTfQKEdvTToHxLS3S/TERgTSVQj22DylIYrOyAKqQ==
+
 string-width@^4.0.0, string-width@^4.1.0, string-width@^4.2.0, string-width@^4.2.2, string-width@^4.2.3:
   version "4.2.3"
   resolved "https://registry.yarnpkg.com/string-width/-/string-width-4.2.3.tgz#269c7117d27b05ad2e536830a8ec895ef9c6d010"
