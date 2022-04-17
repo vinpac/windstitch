@@ -291,7 +291,7 @@ blockquote {
   }
 
   &::after {
-    @apply absolute opacity-50 text- 4xl top-4 right-2;
+    @apply absolute opacity-50 text-4xl top-4 right-2;
 
     content: '”';
   }
