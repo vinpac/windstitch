@@ -1,7 +1,5 @@
-import {styled} from './styled'
-import *  as W from './types'
+import { styled } from './styled';
 
-export const w = styled
 
-export default styled
-export type { W }
+export default styled;
+export * as W from './types'
