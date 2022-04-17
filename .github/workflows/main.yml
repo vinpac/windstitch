@@ -29,7 +29,7 @@ jobs:
         run: yarn test --ci --coverage --maxWorkers=2
 
       - name: Build
-        run: yarn buildst
+        run: yarn build
 
   publish-npm:
     name: Publish NPM Package
