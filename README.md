@@ -1,4 +1,4 @@
-# Stichwind
+![Stichwind](https://github.com/vinpac/stichwind/blob/main/docs/static/img/banner.jpg?raw=true)
 
 Stitchwind is a **1.2kB**, Simple Styling Library that helps you set **when** a className should be applied to a component.
 
