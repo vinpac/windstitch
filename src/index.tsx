@@ -1,5 +1,5 @@
 import { styled } from './styled';
-
+import * as W from './types';
 
 export default styled;
-export * as W from './types'
+export { W };
