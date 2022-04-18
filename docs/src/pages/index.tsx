@@ -3,11 +3,12 @@ import clsx from 'clsx';
 import Layout from '@theme/Layout';
 import Link from '@docusaurus/Link';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
+import { useColorMode } from '@docusaurus/theme-common';
 
 function HomepageHeader() {
   const { siteConfig } = useDocusaurusContext();
   return (
-    <header className="py-16 bg-indigo-500">
+    <header className="py-16 pb-64 bg-indigo-500">
       <div className="container">
         <div className="flex items-center justify-center w-16 h-16 p-2 mx-auto mb-4 bg-white rounded-full hover:animate-spin">
           <img src="/img/logo.svg" alt="" className="w-10 h-10" />
@@ -31,8 +32,79 @@ function HomepageHeader() {
   );
 }
 
+function Feature({
+  icon,
+  title,
+  description,
+  iconBg,
+}: {
+  icon: React.ReactNode;
+  title: string;
+  description: React.ReactNode;
+  iconBg: string;
+}) {
+  return (
+    <div className="w-1/3 py-8 text-center">
+      <div
+        className={`w-12 h-12 mb-4 rounded-full mx-auto text-2xl text-white flex items-center font-bold justify-center ${iconBg}`}
+      >
+        {icon}
+      </div>
+      <h3 className="mb-2 text-xl font-bold">{title}</h3>
+      <p className="leading-snug text-gray-500">{description}</p>
+    </div>
+  );
+}
+
+function HomepageBestFeatures() {
+  const { isDarkTheme } = useColorMode();
+
+  return (
+    <div className={`container pt-48 max-w-5xl ${isDarkTheme ? 'dark' : ''}`}>
+      <div className="flex space-x-10">
+        <Feature
+          icon="🔥"
+          iconBg="bg-red-200 dark:bg-red-500 dark:bg-opacity-50"
+          title="Zero Runtime"
+          description={
+            <>We take care of your classNames. Tailwind takes care of Styles.</>
+          }
+        />
+        <Feature
+          icon="💎"
+          iconBg="bg-cyan-200 dark:bg-cyan-500 dark:bg-opacity-50"
+          title="Automatic Types"
+          description={
+            <>
+              Just declare your{' '}
+              <span className="text-gray-900 dark:text-gray-400">variants</span>
+              , <br />
+              we take care of types.
+            </>
+          }
+        />
+        <Feature
+          icon="💡"
+          iconBg="bg-orange-300 dark:bg-orange-500 dark:bg-opacity-50"
+          title="Simple API"
+          description={
+            <>
+              Stichwind provides only one function.
+              <br /> No Providers, no Context. <br />
+              <span className="text-gray-900 dark:text-gray-400">
+                Just Install and Use it
+              </span>
+            </>
+          }
+        />
+      </div>
+    </div>
+  );
+}
+
 export default function Home(): JSX.Element {
   const { siteConfig } = useDocusaurusContext();
+
   return (
     <Layout
       title={`Hello from ${siteConfig.title}`}
@@ -41,6 +113,19 @@ export default function Home(): JSX.Element {
       <div data-tailwind="true">
         <HomepageHeader />
       </div>
+
+      <main data-tailwind="true" style={{ position: 'relative' }}>
+        <div className="w-full max-w-4xl overflow-hidden border-0 h-[400px] absolute inset-x-0 mx-auto -top-56 rounded-2xl shadow-2xl">
+          <iframe
+            src="https://codesandbox.io/embed/weathered-lake-352zp0?fontsize=14&hidenavigation=1&module=%2Fsrc%2FApp.tsx&theme=dark"
+            className="w-full h-full border-0"
+            title="weathered-lake-352zp0"
+            allow="accelerometer; ambient-light-sensor; camera; encrypted-media; geolocation; gyroscope; hid; microphone; midi; payment; usb; vr; xr-spatial-tracking"
+            sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
+          />
+        </div>
+        <HomepageBestFeatures />
+      </main>
     </Layout>
   );
 }
