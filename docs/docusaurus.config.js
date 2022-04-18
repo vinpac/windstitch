@@ -7,7 +7,7 @@ const darkCodeTheme = require('prism-react-renderer/themes/shadesOfPurple');
 /** @type {import('@docusaurus/types').Config} */
 const config = {
   title: 'Stichwind',
-  tagline: 'Stiches-like API for Tailwind CSS',
+  tagline: 'Stitches-like API for Tailwind CSS',
   url: 'https://your-docusaurus-test-site.com',
   baseUrl: '/',
   onBrokenLinks: 'throw',
