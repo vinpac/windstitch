@@ -1,7 +1,7 @@
 import { ElementType, ReactElement } from 'react';
 
 /**
- * Creates a type from a Variants Object.
+ * Creates a Prop Types from a VariantRecord.
  * Function variants get the type inferred by the first argument type
  */
 type EvaluateProps<Variants extends VariantsRecord> = {
@@ -9,6 +9,14 @@ type EvaluateProps<Variants extends VariantsRecord> = {
     ? keyof Variants[Prop]
     : Variants[Prop] extends (...args: any) => any
     ? Parameters<Variants[Prop]>[0]
+    : never;
+};
+
+type EvaluateRecordProps<Variants extends VariantsRecord> = {
+  [Prop in keyof Variants]: Variants[Prop] extends Record<string, string>
+    ? keyof Variants[Prop]
+    : Variants[Prop] extends (arg: any) => any
+    ? any
     : never;
 };
 
@@ -24,15 +32,15 @@ type GetIntersectionKeys<T, K extends keyof any> = {
  * Create Optional Props type.
  * CreateOptionalProps<{ x: string, y: number}, 'x'> = { x?: string }
  */
-type CreateOptionalProps<Props, DefaultValues> = Partial<
-  Pick<Props, GetIntersectionKeys<Props, keyof DefaultValues>>
+type CreateOptionalProps<Props, DefaultVariants> = Partial<
+  Pick<Props, GetIntersectionKeys<Props, keyof DefaultVariants>>
 >;
 
-type EvaluatePropsWithDefaultValues<
+type EvaluatePropsWithDefaultVariants<
   Variants extends VariantsRecord,
-  DefaultValues extends GetDefaultValues<Variants>
-> = Omit<EvaluateProps<Variants>, keyof DefaultValues> &
-  CreateOptionalProps<EvaluateProps<Variants>, DefaultValues>;
+  DefaultVariants extends GetDefaultVariants<Variants>
+> = Omit<EvaluateProps<Variants>, keyof DefaultVariants> &
+  CreateOptionalProps<EvaluateProps<Variants>, DefaultVariants>;
 
 /**
  * Variants can receive records or functions. This is the function type of it.
@@ -51,11 +59,15 @@ export type VariantsRecord = Record<
  */
 export interface ComponentConfig<
   Variants extends VariantsRecord,
-  DefaultValues
+  DefaultVariants,
+  DefaultAs extends ElementType
 > {
   className?: string;
   variants?: Variants;
-  defaultProps?: DefaultValues;
+  defaultVariants?: DefaultVariants;
+  defaultProps?: Partial<
+    InferAnyComponentProps<ToIntrinsicElementIfPossible<DefaultAs>>
+  >;
 }
 
 /**
@@ -64,8 +76,8 @@ export interface ComponentConfig<
  * = Partial<Infer<DefaultAs, Variants, {}>>
  * But, that breaks `styled`, as it makes all props optional.
  */
-export type GetDefaultValues<Variants extends VariantsRecord> = Partial<
-  Record<keyof Variants, any>
+type GetDefaultVariants<Variants extends VariantsRecord> = Partial<
+  EvaluateRecordProps<Variants>
 >;
 
 /**
@@ -75,10 +87,10 @@ export type GetDefaultValues<Variants extends VariantsRecord> = Partial<
 export interface Component<
   DefaultAs extends ElementType,
   Variants extends VariantsRecord,
-  DefaultValues
+  DefaultVariants
 > {
   <As extends ElementType = DefaultAs>(
-    props: StyledProps<As, Variants, DefaultValues>
+    props: StyledProps<As, Variants, DefaultVariants>
   ): ReactElement<any, any>;
 
   displayName?: string | undefined;
@@ -89,16 +101,28 @@ export interface Component<
  */
 type InferAnyComponentProps<T> = T extends ElementType<infer Props> ? Props : T;
 
+type ToIntrinsicElementIfPossible<As> = As extends keyof JSX.IntrinsicElements
+  ? JSX.IntrinsicElements[As]
+  : As;
+
 /**
  * Extract Props from a W.Component
  */
 export type Infer<T> = T extends Component<
   infer DefaultAs,
   infer Variants,
-  infer DefaultValues
+  infer DefaultVariants
 >
-  ? StyledProps<DefaultAs, Variants, DefaultValues>
+  ? StyledProps<DefaultAs, Variants, DefaultVariants>
   : InferAnyComponentProps<T>;
+
+type GetPropsWithoutVariantsKeys<
+  As extends ElementType,
+  Variants extends VariantsRecord
+> = Omit<
+  InferAnyComponentProps<ToIntrinsicElementIfPossible<As>>,
+  keyof Variants | 'as'
+>;
 
 /**
  * Evaluates props based on Variants. Variants that have a Default value become optional.
@@ -113,7 +137,7 @@ export type Infer<T> = T extends Component<
  *       },
  *       checked: (value: boolean) => value ? 'x' : 'y'
  *     },
- *     defaultProps: {
+ *     defaultVariants: {
  *       color: 'gray'
  *     }
  *   })
@@ -128,14 +152,9 @@ export type Infer<T> = T extends Component<
 export type StyledProps<
   As extends ElementType,
   Variants extends VariantsRecord,
-  DefaultValues
-> = { as?: As } & Omit<
-  InferAnyComponentProps<
-    As extends keyof JSX.IntrinsicElements ? JSX.IntrinsicElements[As] : As
-  >,
-  keyof Variants | 'as'
-> &
-  EvaluatePropsWithDefaultValues<Variants, DefaultValues>;
+  DefaultVariants
+> = { as?: As } & GetPropsWithoutVariantsKeys<As, Variants> &
+  EvaluatePropsWithDefaultVariants<Variants, DefaultVariants>;
 
 /**
  * Styled Function should infer the Component, the Variants object and the Default
@@ -145,11 +164,11 @@ interface StyledFunction {
   <
     DefaultAs extends ElementType,
     Variants extends VariantsRecord = {},
-    DefaultValues extends GetDefaultValues<Variants> = {}
+    DefaultVariants extends GetDefaultVariants<Variants> = {}
   >(
     component: DefaultAs,
-    config: ComponentConfig<Variants, DefaultValues>
-  ): Component<DefaultAs, Variants, DefaultValues>;
+    config: ComponentConfig<Variants, DefaultVariants, DefaultAs>
+  ): Component<DefaultAs, Variants, DefaultVariants>;
 }
 
 /**
@@ -161,11 +180,16 @@ interface StyledFunction {
  */
 export type Styled = StyledFunction &
   {
-    [DefaultAs in keyof JSX.IntrinsicElements]: <
-      Variants extends VariantsRecord = {},
-      DefaultValues extends GetDefaultValues<Variants> = {}
-    >(
-      cx: string,
-      config?: Omit<ComponentConfig<Variants, DefaultValues>, 'className'>
-    ) => Component<DefaultAs, Variants, DefaultValues>;
+    [DefaultAs in keyof JSX.IntrinsicElements]: StyledTagFunction<DefaultAs>;
   };
+
+export type StyledTagFunction<DefaultAs extends keyof JSX.IntrinsicElements> = <
+  Variants extends VariantsRecord = {},
+  DefaultVariants extends GetDefaultVariants<Variants> = {}
+>(
+  cx: string,
+  config?: Omit<
+    ComponentConfig<Variants, DefaultVariants, DefaultAs>,
+    'className'
+  >
+) => Component<DefaultAs, Variants, DefaultVariants>;

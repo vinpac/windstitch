@@ -19,7 +19,7 @@ describe('styled', () => {
     } as const;
     const Button = w.button(defaultClassName, {
       variants,
-      defaultProps: {
+      defaultVariants: {
         size: 'sm',
       },
     });
@@ -27,6 +27,23 @@ describe('styled', () => {
     it('should render without errors', () => {
       render(<Button color="gray" />);
       expect(screen.getByRole('button')).toBeInTheDocument();
+    });
+
+    describe('if setting defaultProps', () => {
+      it('should forward it to the component', () => {
+        const RawButton = w.button(defaultClassName, {
+          variants,
+          defaultVariants: {
+            size: 'sm',
+          },
+          defaultProps: {
+            'aria-label': 'Teste',
+          },
+        });
+
+        render(<RawButton color="gray" />);
+        expect(screen.getByLabelText('Teste')).toBeInTheDocument();
+      });
     });
 
     describe('if no classnames are evaluated', () => {
@@ -139,11 +156,14 @@ describe('styled', () => {
       className?: string;
       post: { id: string };
       isActive: string;
+      ariaLabel?: string;
     }
 
     const mockPost = { id: '1' };
-    const Post: React.FC<PostProps> = ({ className }) => (
-      <article className={className}>Post</article>
+    const Post: React.FC<PostProps> = ({ className, ariaLabel }) => (
+      <article className={className} aria-label={ariaLabel}>
+        Post
+      </article>
     );
     const variants = {
       isActive: (yes: boolean) => (yes ? 'yes' : 'no'),
@@ -155,7 +175,7 @@ describe('styled', () => {
     const Custom = w(Post, {
       className: defaultClassName,
       variants,
-      defaultProps: {
+      defaultVariants: {
         isActive: false,
       },
     });
@@ -163,6 +183,34 @@ describe('styled', () => {
     it('should render without errors', () => {
       render(<Custom post={mockPost} color="gray" />);
       expect(screen.getByRole('article')).toBeInTheDocument();
+    });
+
+    describe('if setting defaultProps', () => {
+      const CustomWithDefaultProps = w(Post, {
+        className: defaultClassName,
+        variants,
+        defaultVariants: {
+          isActive: false,
+        },
+        defaultProps: {
+          ariaLabel: 'Teste',
+        },
+      });
+
+      it('should forward it to the component', () => {
+        render(<CustomWithDefaultProps post={mockPost} color="gray" />);
+        expect(screen.getByLabelText('Teste')).toBeInTheDocument();
+      });
+
+      it('should not make prop types optional', () => {
+        expectType<true>(
+          {} as Pick<W.Infer<typeof CustomWithDefaultProps>, 'post'> extends {
+            post: { id: string };
+          }
+            ? true
+            : false
+        );
+      });
     });
 
     describe.each([
