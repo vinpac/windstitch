@@ -41,7 +41,7 @@ type CheckboxProps = W.infer<typeof Checkbox>;
 // CheckboxProps['checked'] is boolean
 ```
 
-## Default Props make Optional Variants
+## Set a Default Variant to make it optional
 
 All Variants are required by default. To make one optional, just set a default value for it through `defaultProps`.
 
@@ -56,7 +56,7 @@ const Checkbox = w.input('bg-white', {
     },
     checked: (yes: boolean) => (yes ? 'bg-indigo-500' : 'bg-white'),
   },
-  defaultProps: {
+  defaultVariants: {
     color: 'gray',
     checked: false,
   },

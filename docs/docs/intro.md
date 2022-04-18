@@ -67,7 +67,7 @@ const Button = w.button('text-sm', {
     color: { red: '', blue: '' },
     size: { small: '', large: '' },
   },
-  defaultProps: {
+  defaultVariants: {
     size: 'small',
   },
 });

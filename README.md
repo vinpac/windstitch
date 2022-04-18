@@ -6,6 +6,8 @@ Windstitch is a **1.2kB**, Simple Styling Library that helps you set **when** a 
 
 By providing Powerful Types through forward declarations, Windstitch aims to be simple yet powerful by limiting itself to be a organizer API, letting Tailwind handle the styling part.
 
+![Usage](https://github.com/vinpac/windstitch/blob/main/docs/static/img/example.gif?raw=true)
+
 # Install
 
 Install Windstitch from your terminal via npm or yarn.
@@ -50,7 +52,7 @@ const Button = w.button('text-sm', {
       large: 'text-lg',
     },
   },
-  defaultProps: {
+  defaultVariants: {
     size: 'small',
   },
 });

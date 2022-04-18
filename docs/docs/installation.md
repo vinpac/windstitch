@@ -95,7 +95,7 @@ const Button = w.button(
         xl: 'px-6 py-5 rounded-lg text-xl',
       },
     },
-    defaultProps: {
+    defaultVariants: {
       size: 'base',
       color: 'gray',
     },

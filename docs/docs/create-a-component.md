@@ -26,7 +26,7 @@ const Checkbox = w(CustomComponent, {
   variants: {
     checked: (yes: boolean) => (yes ? 'bg-indigo-500' : 'bg-white'),
   },
-  defaultProps: {
+  defaultVariants: {
     // `checked` becomes optional
     checked: false,
   },

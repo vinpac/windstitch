@@ -46,7 +46,7 @@ const Button = w.button(
 `,
   {
     variants,
-    defaultProps: {
+    defaultVariants: {
       size: 'base',
       color: 'violet',
     },
