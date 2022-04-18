@@ -6,6 +6,8 @@ sidebar_position: 4
 
 Variants are fields that create different versions of your component. Use them to power you components.
 
+<img src="/img/example.gif" style={{ marginBottom: '24px' }} />
+
 ## Record Variants
 
 ```typescript

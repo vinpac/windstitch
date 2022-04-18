@@ -23,7 +23,7 @@
     "prism-react-renderer": "^1.3.1",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
-    "windstitch": "^0.1.0"
+    "windstitch": "^0.1.1"
   },
   "devDependencies": {
     "@docusaurus/module-type-aliases": "2.0.0-beta.18",

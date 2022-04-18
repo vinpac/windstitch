@@ -7700,10 +7700,10 @@ wildcard@^2.0.0:
   resolved "https://registry.yarnpkg.com/wildcard/-/wildcard-2.0.0.tgz#a77d20e5200c6faaac979e4b3aadc7b3dd7f8fec"
   integrity sha512-JcKqAHLPxcdb9KM49dufGXn2x3ssnfjbcaQdLlfZsL9rH9wgDQjUtDxbo8NE0F6SFvydeu1VhZe7hZuHsB2/pw==
 
-windstitch@^0.1.0:
-  version "0.1.0"
-  resolved "https://registry.yarnpkg.com/windstitch/-/windstitch-0.1.0.tgz#9b520f4c8f35bc6b5e2c36eb334e7f6a2d9624f5"
-  integrity sha512-eRNwMSQ8YWAukwMS/YJRDERnqpnZ4+h0lWJQb2w4LFUbSIH3kI1A9eRVnTuecNdh9kviC11kiaqqzrdWDYnIcw==
+windstitch@^0.1.1:
+  version "0.1.1"
+  resolved "https://registry.yarnpkg.com/windstitch/-/windstitch-0.1.1.tgz#4e45ca12287de011196ac9035c4221939fdabdb2"
+  integrity sha512-laHO71SzdmWdJOuv3rCH/PPFzHuyi8wFpMJvGuUA4wJ2SF7y7/I9AwkyTFf/bYyMjhM7czElklGAzuRKIEsycA==
 
 wrap-ansi@^7.0.0:
   version "7.0.0"
