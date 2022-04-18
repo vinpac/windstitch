@@ -111,7 +111,7 @@ function HomepageBestFeatures() {
 
 export default function Home(): JSX.Element {
   return (
-    <Layout description="Stitchwind is a 1.2kB, Simple Styling Library that helps you set when a className should be applied to a component.">
+    <Layout description="Windstitch is a 1.2kB, Simple Styling Library that helps you set when a className should be applied to a component.">
       <div data-tailwind="true">
         <HomepageHeader />
       </div>

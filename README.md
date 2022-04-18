@@ -2,7 +2,7 @@
 
 # Windstitch
 
-Stitchwind is a **1.2kB**, Simple Styling Library that helps you set **when** a className should be applied to a component.
+Windstitch is a **1.2kB**, Simple Styling Library that helps you set **when** a className should be applied to a component.
 
 By providing Powerful Types through forward declarations, Windstitch aims to be simple yet powerful by limiting itself to be a organizer API, letting Tailwind handle the styling part.
 
