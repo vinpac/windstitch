@@ -27,16 +27,18 @@ export const styled: W.Styled = function<
     ref: any
   ): ReactElement<any, any> => {
     const Tag = (asProp || component) as ElementType;
+    const isTag = typeof component === 'string';
     return (
       <Tag
         {...props}
         // remove all variants props if the component is a tag name
-        {...(typeof component === 'string' ? overrideVariantProps : {})}
-        ref={ref}
+        {...(isTag ? overrideVariantProps : {})}
+        ref={isTag ? ref : undefined}
         className={
           evaluateClassName(
-            { ...defaultVariants, ...props },
+            props,
             variants || {},
+            defaultVariants,
             defaultClassName
           ) || undefined
         }
