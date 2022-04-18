@@ -8,7 +8,7 @@ import { useColorMode } from '@docusaurus/theme-common';
 function HomepageHeader() {
   const { siteConfig } = useDocusaurusContext();
   return (
-    <header className="py-16 pb-64 bg-indigo-500">
+    <header className="py-16 bg-indigo-500 md:pb-64">
       <div className="container">
         <div className="flex items-center justify-center w-16 h-16 p-2 mx-auto mb-4 bg-white rounded-full hover:animate-spin">
           <img src="/img/logo.svg" alt="" className="w-10 h-10" />
@@ -44,7 +44,7 @@ function Feature({
   iconBg: string;
 }) {
   return (
-    <div className="w-1/3 py-8 text-center">
+    <div className="w-full text-center md:w-1/3">
       <div
         className={`w-12 h-12 mb-4 rounded-full mx-auto text-2xl text-white flex items-center font-bold justify-center ${iconBg}`}
       >
@@ -60,14 +60,21 @@ function HomepageBestFeatures() {
   const { isDarkTheme } = useColorMode();
 
   return (
-    <div className={`container pt-48 max-w-5xl ${isDarkTheme ? 'dark' : ''}`}>
-      <div className="flex space-x-10">
+    <div
+      className={`container py-10 md:pt-56 max-w-5xl ${
+        isDarkTheme ? 'dark' : ''
+      }`}
+    >
+      <div className="flex flex-col space-y-8 md:space-y-0 md:space-x-10 md:flex-row">
         <Feature
           icon="🔥"
           iconBg="bg-red-200 dark:bg-red-500 dark:bg-opacity-50"
           title="Zero Runtime"
           description={
-            <>We take care of your classNames. Tailwind takes care of Styles.</>
+            <>
+              We take care of your classNames. <br />
+              Tailwind takes care of Styles.
+            </>
           }
         />
         <Feature
@@ -115,7 +122,7 @@ export default function Home(): JSX.Element {
       </div>
 
       <main data-tailwind="true" style={{ position: 'relative' }}>
-        <div className="w-full max-w-4xl overflow-hidden border-0 h-[400px] absolute inset-x-0 mx-auto -top-56 rounded-2xl shadow-2xl">
+        <div className="hidden md:block w-full max-w-4xl overflow-hidden border-0 h-[400px] absolute inset-x-0 mx-auto -top-56 rounded-2xl shadow-2xl">
           <iframe
             src="https://codesandbox.io/embed/weathered-lake-352zp0?fontsize=14&hidenavigation=1&module=%2Fsrc%2FApp.tsx&theme=dark"
             className="w-full h-full border-0"
