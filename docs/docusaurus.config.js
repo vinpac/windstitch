@@ -57,7 +57,7 @@ const config = {
             label: 'Docs',
           },
           {
-            href: 'https://github.com/vinpac/wind',
+            href: 'https://github.com/vinpac/stichwind',
             label: 'GitHub',
             position: 'right',
           },
