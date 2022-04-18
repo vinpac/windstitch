@@ -110,13 +110,8 @@ function HomepageBestFeatures() {
 }
 
 export default function Home(): JSX.Element {
-  const { siteConfig } = useDocusaurusContext();
-
   return (
-    <Layout
-      title={`Hello from ${siteConfig.title}`}
-      description="Description will go into a meta tag in <head />"
-    >
+    <Layout description="Stitchwind is a 1.2kB, Simple Styling Library that helps you set when a className should be applied to a component.">
       <div data-tailwind="true">
         <HomepageHeader />
       </div>
