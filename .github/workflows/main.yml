@@ -1,5 +1,10 @@
 name: CI
-on: [push]
+on:
+  push:
+    paths-ignore:
+      - '**/README.md'
+      - 'docs/**/*'
+      - '.vscode'
 jobs:
   build:
     name: Build, lint, and test on Node ${{ matrix.node }} and ${{ matrix.os }}
@@ -7,8 +12,8 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        node: ['12.x', '14.x', '16.x']
-        os: [ubuntu-latest, windows-latest, macOS-latest]
+        node: ['16.x']
+        os: [ubuntu-latest, windows-latest]
 
     steps:
       - name: Checkout repo
@@ -32,6 +37,8 @@ jobs:
         run: yarn build
 
   publish-npm:
+    # only run on main branch
+    if: github.ref == 'refs/heads/main'
     name: Publish NPM Package
 
     needs: build
