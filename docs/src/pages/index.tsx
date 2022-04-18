@@ -96,7 +96,7 @@ function HomepageBestFeatures() {
           title="Simple API"
           description={
             <>
-              Stichwind provides only one function.
+              Windstitch provides only one function.
               <br /> No Providers, no Context. <br />
               <span className="text-gray-900 dark:text-gray-400">
                 Just Install and Use it

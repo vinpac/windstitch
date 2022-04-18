@@ -4,30 +4,30 @@ sidebar_position: 2
 
 import Button from './installation-example.tsx'
 
-# Install Stichwind
+# Install Windstitch
 
-Install Stichwind from your terminal via npm or yarn.
+Install Windstitch from your terminal via npm or yarn.
 
 ```bash
 # With npm
-npm install stichwind
+npm install windstitch
 
 # With yarn
-yarn add stichwind
+yarn add windstitch
 ```
 
 ### Import it
 
-Import `styled` from `stichwind`.
+Import `styled` from `windstitch`.
 
 ```js
-import { styled } from 'stichwind';
+import { styled } from 'windstitch';
 ```
 
 You can also import `w`, which works as an alias for `styled`
 
 ```typescript
-import { w } from 'stichwind';
+import { w } from 'windstitch';
 ```
 
 ### Use it

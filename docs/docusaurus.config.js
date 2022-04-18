@@ -6,7 +6,7 @@ const darkCodeTheme = require('prism-react-renderer/themes/shadesOfPurple');
 
 /** @type {import('@docusaurus/types').Config} */
 const config = {
-  title: 'Stichwind',
+  title: 'Windstitch',
   tagline: 'Stitches-like API for Tailwind CSS',
   url: 'https://your-docusaurus-test-site.com',
   baseUrl: '/',
@@ -44,9 +44,9 @@ const config = {
     /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
     ({
       navbar: {
-        title: 'Stichwind',
+        title: 'Windstitch',
         logo: {
-          alt: 'Stichwind Logo',
+          alt: 'Windstitch Logo',
           src: 'img/logo.svg',
         },
         items: [
@@ -57,14 +57,14 @@ const config = {
             label: 'Docs',
           },
           {
-            href: 'https://github.com/vinpac/stichwind',
+            href: 'https://github.com/vinpac/windstitch',
             label: 'GitHub',
             position: 'right',
           },
         ],
       },
       footer: {
-        copyright: `Copyright © ${new Date().getFullYear()} Stichwind. Built with Docusaurus.`,
+        copyright: `Copyright © ${new Date().getFullYear()} Windstitch. Built with Docusaurus.`,
       },
       prism: {
         theme: lightCodeTheme,

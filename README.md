@@ -1,35 +1,35 @@
-![Stichwind](https://github.com/vinpac/stichwind/blob/main/docs/static/img/banner.jpg?raw=true)
+![Windstitch](https://github.com/vinpac/windstitch/blob/main/docs/static/img/banner.jpg?raw=true)
 
-# Stichwind
+# Windstitch
 
 Stitchwind is a **1.2kB**, Simple Styling Library that helps you set **when** a className should be applied to a component.
 
-By providing Powerful Types through forward declarations, Stichwind aims to be simple yet powerful by limiting itself to be a organizer API, letting Tailwind handle the styling part.
+By providing Powerful Types through forward declarations, Windstitch aims to be simple yet powerful by limiting itself to be a organizer API, letting Tailwind handle the styling part.
 
 # Install
 
-Install Stichwind from your terminal via npm or yarn.
+Install Windstitch from your terminal via npm or yarn.
 
 ```bash
 # With npm
-npm install stichwind
+npm install windstitch
 
 # With yarn
-yarn add stichwind
+yarn add windstitch
 ```
 
 ### Import it
 
-Import `styled` from `stichwind`.
+Import `styled` from `windstitch`.
 
 ```js
-import { styled } from 'stichwind';
+import { styled } from 'windstitch';
 ```
 
 You can also import `w`, which works as an alias for `styled`
 
 ```typescript
-import { w } from 'stichwind';
+import { w } from 'windstitch';
 ```
 
 ### Use it

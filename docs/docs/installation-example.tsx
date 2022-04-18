@@ -1,5 +1,5 @@
 import React from 'react';
-import { w, W } from 'stichwind';
+import { w, W } from 'windstitch';
 import { useColorMode } from '@docusaurus/theme-common';
 
 const Container = w.div('', {

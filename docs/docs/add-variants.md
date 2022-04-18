@@ -9,7 +9,7 @@ Variants are fields that create different versions of your component. Use them t
 ## Record Variants
 
 ```typescript
-import { w, W } from 'stichwind';
+import { w, W } from 'windstitch';
 
 const Button = w.button('bg-white', {
   variants: {
@@ -28,7 +28,7 @@ type ButtonProps = W.infer<typeof Button>;
 For complex values, use a function style it. The prop type is inferred from the first argument type. Always remember to set it.
 
 ```typescript
-import { w, W } from 'stichwind';
+import { w, W } from 'windstitch';
 
 const Checkbox = w.input('bg-white', {
   variants: {
@@ -44,7 +44,7 @@ type CheckboxProps = W.infer<typeof Checkbox>;
 All Variants are required by default. To make one optional, just set a default value for it through `defaultProps`.
 
 ```typescript
-import { w, W } from 'stichwind';
+import { w, W } from 'windstitch';
 
 const Checkbox = w.input('bg-white', {
   variants: {

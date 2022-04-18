@@ -7,7 +7,7 @@ sidebar_position: 3
 ## Using a Tag name
 
 ```typescript
-import { w } from 'stichwind';
+import { w } from 'windstitch';
 
 const Button = w.button('bg-white');
 ```
@@ -15,7 +15,7 @@ const Button = w.button('bg-white');
 ## Using a Custom Component
 
 ```typescript
-import { w } from 'stichwind';
+import { w } from 'windstitch';
 
 const CustomComponent: React.FC<{ className: string }> = props => (
   <input {...props} type="checkbox" />
