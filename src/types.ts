@@ -87,7 +87,18 @@ export interface Component<
 /**
  * Extract Props from a Component
  */
-export type Infer<T> = T extends ElementType<infer Props> ? Props : T;
+type InferAnyComponentProps<T> = T extends ElementType<infer Props> ? Props : T;
+
+/**
+ * Extract Props from a W.Component
+ */
+export type Infer<T> = T extends Component<
+  infer DefaultAs,
+  infer Variants,
+  infer DefaultValues
+>
+  ? StyledProps<DefaultAs, Variants, DefaultValues>
+  : InferAnyComponentProps<T>;
 
 /**
  * Evaluates props based on Variants. Variants that have a Default value become optional.
@@ -119,7 +130,7 @@ export type StyledProps<
   Variants extends VariantsRecord,
   DefaultValues
 > = { as?: As } & Omit<
-  Infer<
+  InferAnyComponentProps<
     As extends keyof JSX.IntrinsicElements ? JSX.IntrinsicElements[As] : As
   >,
   keyof Variants | 'as'
