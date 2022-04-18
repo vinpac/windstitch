@@ -35,29 +35,3 @@ jobs:
 
       - name: Build
         run: yarn build
-
-  publish-npm:
-    # only run on main branch
-    if: github.ref == 'refs/heads/main'
-    name: Publish NPM Package
-
-    needs: build
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Checkout repo
-        uses: actions/checkout@v3
-      
-      - name: Setup Node 16.x
-        uses: actions/setup-node@v1
-        with:
-          node-version: '16.x'
-          registry-url: https://registry.npmjs.org/
-
-      - name: Install deps and build (with cache)
-        uses: bahmutov/npm-install@v1
-
-      - name: Publish to NPM
-        uses: JS-DevTools/npm-publish@v1
-        with:
-          token: ${{ secrets.NPM_TOKEN }}
