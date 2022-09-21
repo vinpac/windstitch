@@ -64,6 +64,7 @@ export interface ComponentConfig<
 > {
   className?: string;
   variants?: Variants;
+  transient?: (keyof Variants)[];
   defaultVariants?: DefaultVariants;
   defaultProps?: Partial<
     InferAnyComponentProps<ToIntrinsicElementIfPossible<DefaultAs>>

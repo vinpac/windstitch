@@ -66,6 +66,50 @@ type CheckboxProps = W.infer<typeof Checkbox>;
 // CheckboxProps['color'] is 'gray' | 'red' | undefined
 ```
 
+## Transient Variants
+
+Sometimes you want to pass a variant that is not a custom component prop. You can do that with `transient` option. This is useful if you want a pass a variable only for styling purposes to variant.
+
+```typescript
+import { w, W } from 'windstitch';
+
+const CustomComponent: React.FC<{
+  className: string;
+  active?: boolean;
+}> = props => <p {...props}>{props.active ? "I'm active" : "I'm inactive"}</p>;
+
+const StyledComponent = w(CustomComponent, {
+  variants: {
+    active: (yes: boolean) => (yes ? 'text-indigo-500' : 'text-white'),
+  },
+  transient: ['active'],
+});
+
+<StyledComponent active={true} />;
+// Renders <p class="text-indigo-500">I'm inactive</p>
+```
+
+If `transient` options is not set, the variant will be passed to the component as a prop, sometimes resulting in an HTML error.
+
+```typescript
+import { w, W } from 'windstitch';
+
+const CustomComponent: React.FC<{
+  className: string;
+  active?: boolean;
+}> = props => <p {...props}>{props.active ? "I'm active" : "I'm inactive"}</p>;
+
+const StyledComponent = w(CustomComponent, {
+  variants: {
+    active: (yes: boolean) => (yes ? 'text-indigo-500' : 'text-white'),
+  },
+});
+
+<StyledComponent active={true} />;
+// Renders <p class="text-indigo-500">I'm active</p>,
+// but gives a warning: "Received `true` for a non-boolean attribute `active`" in the console
+```
+
 ## Reusing styles
 
 As prop types are inferred by your variants shape, you can easily reuse styles across components.
