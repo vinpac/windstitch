@@ -20,6 +20,80 @@ describe('evaluateClassName', () => {
     });
   });
 
+  describe('when using mapVariants', () => {
+    const variants = {
+      size: {
+        base: 'text-base',
+        xl: 'text-8xl',
+      },
+      weight: {
+        normal: 'font-normal',
+        bold: 'font-bold',
+      },
+      theme: {
+        h1: '',
+        base: '',
+      },
+    };
+    const defaultVariants = {
+      theme: 'base',
+      weight: 'normal',
+      size: 'base',
+    };
+    const mapVariants = {
+      theme: {
+        h1: {
+          size: 'xl',
+          weight: 'bold',
+        },
+        base: {
+          size: 'base',
+          weight: 'normal',
+        },
+      },
+    };
+
+    const evaluate = (props = {}) =>
+      evaluateClassName(props, variants, defaultVariants, mapVariants, '');
+
+    describe('if no prop is given', () => {
+      it('should return the default mapped variants', () => {
+        expect(evaluate()).toEqual('text-base font-normal');
+      });
+    });
+
+    describe('if no prop is given and the default variant value is diff than the default value given by the mapped variant', () => {
+      it('should return the default mapped variants', () => {
+        expect(
+          evaluateClassName(
+            {},
+            variants,
+            {
+              ...defaultVariants,
+              size: 'xl',
+            },
+            mapVariants,
+            ''
+          )
+        ).toEqual('text-base font-normal');
+      });
+    });
+
+    describe('if the mapped variant is given a value', () => {
+      it('should return the selected variants on the map', () => {
+        expect(evaluate({ theme: 'h1' })).toEqual('text-8xl font-bold');
+      });
+    });
+
+    describe('if the mapped variant is given a value and a mapped variant is also given a value', () => {
+      it('should return the selected variants on the map', () => {
+        expect(evaluate({ theme: 'h1', size: 'base' })).toEqual(
+          'text-base font-bold'
+        );
+      });
+    });
+  });
+
   describe.each([
     ['no props match', 'default class name', {}, {}, [defaultClassName]],
     [
@@ -125,7 +199,13 @@ describe('evaluateClassName', () => {
     (_, expectedResultMessage, props, defaultVariants, expectedClassNames) => {
       it(`should return ${expectedResultMessage}`, () => {
         expect(
-          evaluateClassName(props, variants, defaultVariants, defaultClassName)
+          evaluateClassName(
+            props,
+            variants,
+            defaultVariants,
+            undefined,
+            defaultClassName
+          )
             .split(' ')
             .sort()
         ).toEqual(expectedClassNames.sort());

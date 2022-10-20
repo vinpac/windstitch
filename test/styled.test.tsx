@@ -56,6 +56,85 @@ describe('styled', () => {
       });
     });
 
+    describe('if setting mapVariants', () => {
+      const RawButton = w.button(defaultClassName, {
+        variants: {
+          textColor: {
+            primary: 'text-primary-500',
+            secondary: 'text-secondary-500',
+          },
+          fontSize: {
+            base: 'text-base',
+            xl: 'text-xl',
+          },
+          color: {
+            primary: 'bg-primary-500',
+            secondary: 'bg-secondary-500',
+          },
+        },
+        mapVariants: {
+          color: {
+            primary: {
+              textColor: 'primary',
+            },
+            secondary: {
+              textColor: 'secondary',
+            },
+          },
+        },
+        defaultVariants: {
+          color: 'primary',
+          textColor: 'primary',
+          fontSize: 'base',
+        },
+        transient: ['textColor'],
+      });
+
+      const assertClassNames = (expectedClassNames: string[]) => {
+        expect(
+          screen
+            .getByRole('button')
+            .className.split(' ')
+            .sort()
+        ).toEqual(expectedClassNames.sort());
+      };
+
+      it('should render with right className', () => {
+        render(<RawButton color="primary" />);
+        expect(screen.getByRole('button')).toBeInTheDocument();
+        assertClassNames([
+          defaultClassName,
+          'text-base',
+          'bg-primary-500',
+          'text-primary-500',
+        ]);
+      });
+
+      describe('if changing the mapped variant', () => {
+        it('should render with correct className', () => {
+          render(<RawButton color="secondary" />);
+          assertClassNames([
+            defaultClassName,
+            'text-base',
+            'bg-secondary-500',
+            'text-secondary-500',
+          ]);
+        });
+      });
+
+      describe('if setting the mapped variant with a custom value for the mapped variant', () => {
+        it('should render with correct className', () => {
+          render(<RawButton color="secondary" textColor="primary" />);
+          assertClassNames([
+            defaultClassName,
+            'text-base',
+            'bg-secondary-500',
+            'text-primary-500',
+          ]);
+        });
+      });
+    });
+
     describe('if not declaring variants', () => {
       const RawButton = w.button(defaultClassName);
 
@@ -210,6 +289,36 @@ describe('styled', () => {
             ? true
             : false
         );
+      });
+    });
+
+    describe('if setting transient variants', () => {
+      const CustomWithTransientVariants = w(
+        props => {
+          if (props.isActive) {
+            throw new Error('isActive should not be passed to the component');
+          }
+
+          return (
+            <article className={props.className}>
+              worked {props.post.id}
+            </article>
+          );
+        },
+        {
+          variants: { isActive: { a: 'b' } },
+          defaultVariants: {
+            isActive: 'a',
+          },
+          transient: ['isActive'],
+        }
+      );
+
+      it('should not pass it to the component', () => {
+        render(<CustomWithTransientVariants post={{ id: '1' }} isActive="a" />);
+        const article = screen.getByRole('article');
+        expect(article).toHaveTextContent('worked 1');
+        expect(article.className).toEqual('b');
       });
     });
 
