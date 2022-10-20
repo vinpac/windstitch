@@ -66,6 +66,19 @@ export interface ComponentConfig<
   variants?: Variants;
   transient?: (keyof Variants)[];
   defaultVariants?: DefaultVariants;
+  mapVariants?: Partial<
+    {
+      [k in keyof Variants]: Partial<
+        {
+          [k2 in keyof Variants[k]]: Partial<
+            {
+              [k3 in keyof Omit<Variants, k>]: keyof Variants[k3];
+            }
+          >;
+        }
+      >;
+    }
+  >;
   defaultProps?: Partial<
     InferAnyComponentProps<ToIntrinsicElementIfPossible<DefaultAs>>
   >;
