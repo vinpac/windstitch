@@ -38,7 +38,7 @@ type CreateOptionalProps<Props, DefaultVariants> = Partial<
 
 type EvaluatePropsWithDefaultVariants<
   Variants extends VariantsRecord,
-  DefaultVariants extends GetDefaultVariants<Variants>
+  DefaultVariants = GetDefaultVariants<Variants>
 > = Omit<EvaluateProps<Variants>, keyof DefaultVariants> &
   CreateOptionalProps<EvaluateProps<Variants>, DefaultVariants>;
 
@@ -194,3 +194,26 @@ export type StyledTagFunction<DefaultAs extends keyof JSX.IntrinsicElements> = <
     'className'
   >
 ) => Component<DefaultAs, Variants, DefaultVariants>;
+
+/**
+ * Configuration to create a Component with variants
+ */
+export interface ClassNameFactorConfig<
+  Variants extends VariantsRecord,
+  DefaultVariants
+> {
+  className?: string;
+  variants: Variants;
+  defaultVariants?: DefaultVariants;
+}
+
+export type ClassNameFactor = {
+  <
+    Variants extends VariantsRecord,
+    DefaultVariants extends Partial<EvaluateRecordProps<Variants>>
+  >(
+    config: ClassNameFactorConfig<Variants, DefaultVariants>
+  ): (
+    props: EvaluatePropsWithDefaultVariants<Variants, DefaultVariants>
+  ) => string;
+};
