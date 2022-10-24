@@ -6,7 +6,7 @@ sidebar_position: 1
 
 <img src="/img/banner.jpg" style={{ marginBottom: '24px' }} />
 
-Windstitch is a **1.2kb**, Simple Styling Library that helps you set **when** a className should be applied to a component.
+Windstitch is a **1.4kB**, Simple Styling Library that helps you set **when** a className should be applied to a component.
 
 By providing Powerful Types through forward declarations, Windstitch aims to be simple yet powerful by limiting itself to be a organizer API, letting Tailwind handle the styling part.
 
