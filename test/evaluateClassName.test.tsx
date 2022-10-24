@@ -62,19 +62,6 @@ describe('evaluateClassName', () => {
       },
     ];
 
-    // {
-    //   theme: {
-    //     h1: {
-    //       size: 'xl',
-    //       weight: 'bold',
-    //     },
-    //     base: {
-    //       size: 'base',
-    //       weight: 'normal',
-    //     },
-    //   },
-    // };
-
     const evaluate = (props = {}) =>
       evaluateClassName(props, variants, defaultVariants, compoundVariants, '');
 
