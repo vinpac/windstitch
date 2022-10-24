@@ -1,5 +1,5 @@
 const Benchmark = require('benchmark');
-const { wx } = require('./dist/index.js');
+const { wx } = require('../dist/index.js');
 
 const suite = new Benchmark.Suite();
 
