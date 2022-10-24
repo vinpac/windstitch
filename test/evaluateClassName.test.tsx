@@ -1,3 +1,4 @@
+import { ComponentConfig } from '../src/types';
 import { evaluateClassName } from '../src/utils';
 
 describe('evaluateClassName', () => {
@@ -20,7 +21,7 @@ describe('evaluateClassName', () => {
     });
   });
 
-  describe('when using mapVariants', () => {
+  describe('when using compoundVariants', () => {
     const variants = {
       size: {
         base: 'text-base',
@@ -40,30 +41,51 @@ describe('evaluateClassName', () => {
       weight: 'normal',
       size: 'base',
     };
-    const mapVariants = {
-      theme: {
-        h1: {
+    const compoundVariants: ComponentConfig<
+      typeof variants,
+      typeof defaultVariants,
+      'button'
+    >['compoundVariants'] = [
+      {
+        theme: 'h1',
+        defaultTo: {
           size: 'xl',
           weight: 'bold',
         },
-        base: {
+      },
+      {
+        theme: 'base',
+        defaultTo: {
           size: 'base',
           weight: 'normal',
         },
       },
-    };
+    ];
+
+    // {
+    //   theme: {
+    //     h1: {
+    //       size: 'xl',
+    //       weight: 'bold',
+    //     },
+    //     base: {
+    //       size: 'base',
+    //       weight: 'normal',
+    //     },
+    //   },
+    // };
 
     const evaluate = (props = {}) =>
-      evaluateClassName(props, variants, defaultVariants, mapVariants, '');
+      evaluateClassName(props, variants, defaultVariants, compoundVariants, '');
 
     describe('if no prop is given', () => {
-      it('should return the default mapped variants', () => {
+      it('should return the default compounded variants', () => {
         expect(evaluate()).toEqual('text-base font-normal');
       });
     });
 
-    describe('if no prop is given and the default variant value is diff than the default value given by the mapped variant', () => {
-      it('should return the default mapped variants', () => {
+    describe('if no prop is given and the default variant value is diff than the default value given by the compounded variant', () => {
+      it('should return the default compounded variants', () => {
         expect(
           evaluateClassName(
             {},
@@ -72,20 +94,20 @@ describe('evaluateClassName', () => {
               ...defaultVariants,
               size: 'xl',
             },
-            mapVariants,
+            compoundVariants,
             ''
           )
         ).toEqual('text-base font-normal');
       });
     });
 
-    describe('if the mapped variant is given a value', () => {
+    describe('if the compounded variant is given a value', () => {
       it('should return the selected variants on the map', () => {
         expect(evaluate({ theme: 'h1' })).toEqual('text-8xl font-bold');
       });
     });
 
-    describe('if the mapped variant is given a value and a mapped variant is also given a value', () => {
+    describe('if the compounded variant is given a value and a compounded variant is also given a value', () => {
       it('should return the selected variants on the map', () => {
         expect(evaluate({ theme: 'h1', size: 'base' })).toEqual(
           'text-base font-bold'

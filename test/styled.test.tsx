@@ -56,7 +56,7 @@ describe('styled', () => {
       });
     });
 
-    describe('if setting mapVariants', () => {
+    describe('if setting compoundVariants', () => {
       const RawButton = w.button(defaultClassName, {
         variants: {
           textColor: {
@@ -72,16 +72,20 @@ describe('styled', () => {
             secondary: 'bg-secondary-500',
           },
         },
-        mapVariants: {
-          color: {
-            primary: {
+        compoundVariants: [
+          {
+            color: 'primary',
+            defaultTo: {
               textColor: 'primary',
             },
-            secondary: {
+          },
+          {
+            color: 'secondary',
+            defaultTo: {
               textColor: 'secondary',
             },
           },
-        },
+        ],
         defaultVariants: {
           color: 'primary',
           textColor: 'primary',
@@ -110,7 +114,7 @@ describe('styled', () => {
         ]);
       });
 
-      describe('if changing the mapped variant', () => {
+      describe('if changing the compounded variant', () => {
         it('should render with correct className', () => {
           render(<RawButton color="secondary" />);
           assertClassNames([
@@ -122,7 +126,7 @@ describe('styled', () => {
         });
       });
 
-      describe('if setting the mapped variant with a custom value for the mapped variant', () => {
+      describe('if setting the compounded variant with a custom value for the compounded variant', () => {
         it('should render with correct className', () => {
           render(<RawButton color="secondary" textColor="primary" />);
           assertClassNames([
