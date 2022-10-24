@@ -38,7 +38,7 @@ type CreateOptionalProps<Props, DefaultVariants> = Partial<
 
 type EvaluatePropsWithDefaultVariants<
   Variants extends VariantsRecord,
-  DefaultVariants extends GetDefaultVariants<Variants>
+  DefaultVariants
 > = Omit<EvaluateProps<Variants>, keyof DefaultVariants> &
   CreateOptionalProps<EvaluateProps<Variants>, DefaultVariants>;
 
@@ -54,6 +54,22 @@ export type VariantsRecord = Record<
   Record<string, string> | ClassNameFunction
 >;
 
+export type CompoundVariants<
+  Variants extends VariantsRecord,
+  Keys extends keyof Variants = keyof Variants
+> = Partial<
+  {
+    [k in Keys]: keyof Variants[k];
+  }
+> & {
+  defaultTo?: Partial<
+    {
+      [k in Keys]: keyof Variants[k];
+    }
+  >;
+  class?: string;
+};
+
 /**
  * Configuration to create a Component with variants
  */
@@ -66,19 +82,7 @@ export interface ComponentConfig<
   variants?: Variants;
   transient?: (keyof Variants)[];
   defaultVariants?: DefaultVariants;
-  mapVariants?: Partial<
-    {
-      [k in keyof Variants]: Partial<
-        {
-          [k2 in keyof Variants[k]]: Partial<
-            {
-              [k3 in keyof Omit<Variants, k>]: keyof Variants[k3];
-            }
-          >;
-        }
-      >;
-    }
-  >;
+  compoundVariants?: Array<CompoundVariants<Variants>>;
   defaultProps?: Partial<
     InferAnyComponentProps<ToIntrinsicElementIfPossible<DefaultAs>>
   >;

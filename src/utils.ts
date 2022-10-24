@@ -11,20 +11,20 @@ export const evaluateClassName = (
   props: Record<string, any>,
   variants: VariantsRecord,
   defaultVariants?: Record<string, any>,
-  mapVariants?: Record<
-    string,
-    Record<string, Record<string, any> | undefined> | undefined
-  >,
+  compoundVariants?: Record<string, any>[],
   defaultClassName = ''
 ): string => {
   const classNames = [defaultClassName, props.className || ''];
-  const variantsSelectedByMap = {};
-  const getVariantValue = (key: string, useMappedVariants = false) => {
+  let compoundedClassName = '';
+  let compoundedDefaults: Record<string, any> = {};
+
+  // get a variant value from props
+  const getVariantValue = (key: string, selectFromCompounded = false) => {
     if (props[key] === undefined) {
       const defaultValue = defaultVariants?.[key];
-      if (useMappedVariants) {
+      if (selectFromCompounded) {
         return (
-          variantsSelectedByMap[key as keyof typeof variantsSelectedByMap] ||
+          compoundedDefaults[key as keyof typeof compoundedDefaults] ||
           defaultValue
         );
       }
@@ -35,16 +35,20 @@ export const evaluateClassName = (
     return props[key];
   };
 
-  if (mapVariants) {
+  if (compoundVariants) {
+    let lastSelectorPrecision = 0;
     // We need to map variants first so we can use them in the next step
-    Object.keys(mapVariants).forEach(key => {
-      const map = mapVariants[key];
-      const value = getVariantValue(key);
-      if (value !== undefined) {
-        const mappedVariants = map?.[value];
-        if (mappedVariants) {
-          Object.assign(variantsSelectedByMap, mappedVariants);
-        }
+    compoundVariants?.some(({ defaultTo, class: className, ...selector }) => {
+      const keys = Object.keys(selector);
+      const selectorPrecision = keys.length;
+      const selectorMatches = keys.every(
+        key => getVariantValue(key) === selector[key]
+      );
+
+      if (selectorMatches && selectorPrecision >= lastSelectorPrecision) {
+        compoundedClassName = className || '';
+        compoundedDefaults = defaultTo || {};
+        lastSelectorPrecision = selectorPrecision;
       }
     });
   }
@@ -58,13 +62,9 @@ export const evaluateClassName = (
     } else {
       classNames.push(variant[value]?.trim());
     }
-
-    const mappedVariant = mapVariants?.[key]?.[value];
-
-    if (mappedVariant) {
-      Object.assign(variantsSelectedByMap, mappedVariant);
-    }
   });
+
+  classNames.push(compoundedClassName);
 
   return classNames.filter(Boolean).join(' ');
 };
