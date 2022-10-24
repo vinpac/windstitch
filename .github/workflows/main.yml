@@ -5,6 +5,11 @@ on:
       - '**/README.md'
       - 'docs/**/*'
       - '.vscode'
+
+permissions:
+  contents: write
+  deployments: write
+
 jobs:
   build:
     name: Build, lint, and test on Node ${{ matrix.node }} and ${{ matrix.os }}
@@ -49,7 +54,7 @@ jobs:
       - name: Store benchmark result
         uses: benchmark-action/github-action-benchmark@v1
         with:
-          name: 'benchmark'
+          name: benchmark
           gh-pages-branch: gh-pages
           benchmark-data-dir-path: ./cache
           # What benchmark tool the output.txt came from
@@ -64,5 +69,6 @@ jobs:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           # Enable alert commit comment
           comment-on-alert: true
+          comment-always: true
           # Mention @rhysd in the commit comment
           alert-comment-cc-users: '@vinpac'
