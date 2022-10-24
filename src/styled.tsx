@@ -15,28 +15,17 @@ export const styled: W.Styled = function(
     defaultVariants,
   }
 ) {
-  const variantKeys = variants ? Object.keys(variants) : [];
-  const cleanProps = (props: Record<string, any>, isTag?: boolean) => {
-    if (!variants) {
-      return props;
-    }
-
-    const nextProps: Record<string, any> = {};
-    Object.keys(props).forEach(key => {
-      let shouldAddProp = true;
-      if (isTag) {
-        shouldAddProp = !variantKeys.includes(key);
-      } else if (transient) {
-        shouldAddProp = !transient.includes(key);
-      }
-
-      if (shouldAddProp) {
-        nextProps[key] = props[key];
-      }
-    });
-
-    return nextProps;
-  };
+  const overrideVariantProps = variants
+    ? Object.fromEntries(Object.keys(variants).map(key => [key, undefined]))
+    : {};
+  const overrideTransientProps =
+    transient && variants
+      ? Object.fromEntries(
+          Object.keys(variants)
+            .filter(key => transient.includes(key))
+            .map(key => [key, undefined])
+        )
+      : {};
   const Component = <As extends ElementType>(
     { as: asProp, ...props }: W.StyledProps<As, any, any>,
     ref: any
@@ -45,14 +34,10 @@ export const styled: W.Styled = function(
     const isTag = typeof component === 'string';
     return (
       <Tag
-        {...cleanProps(
-          {
-            ...defaultProps,
-            ...props,
-          },
-          isTag
-        )}
+        {...defaultProps}
+        {...props}
         // remove all variants props if the component is a tag name
+        {...(isTag ? overrideVariantProps : overrideTransientProps)}
         ref={isTag ? ref : undefined}
         className={
           evaluateClassName(
