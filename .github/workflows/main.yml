@@ -35,3 +35,28 @@ jobs:
 
       - name: Build
         run: yarn build
+
+        # Run benchmark with `go test -bench` and stores the output to a file
+      - name: Run benchmark
+        run: node bin/benchmark.js | tee output.txt
+
+      - name: Download previous benchmark data
+        uses: actions/cache@v1
+        with:
+          path: ./cache
+          key: ${{ runner.os }}-benchmark
+          
+      - name: Store benchmark result
+        uses: benchmark-action/github-action-benchmark@v1
+        with:
+          name: 'benchmark'
+          gh-pages-branch: gh-pages
+          benchmark-data-dir-path: ./cache
+          # What benchmark tool the output.txt came from
+          tool: 'benchmarkjs'
+          # Where the output from the benchmark tool is stored
+          output-file-path: output.txt
+          # Where the previous data file is stored
+          external-data-json-path: ./cache/benchmark-data.json
+          # Workflow will fail when an alert happens
+          fail-on-alert: true
