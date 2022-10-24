@@ -8,7 +8,7 @@ const size = {
   xl: 'q',
 };
 const defaultClassName = 'm';
-const evalute = wx({
+const config = {
   variants: {
     color: {
       gray: '1',
@@ -33,25 +33,59 @@ const evalute = wx({
     siz3: value => size[value],
   },
   className: defaultClassName,
+};
+const evaluate = wx(config);
+const compoundEvaluate = wx({
+  ...config,
+  compoundVariants: [
+    {
+      color: 'gray',
+      defaultTo: {
+        size3: 'sm',
+      },
+    },
+    {
+      color: 'gray',
+      size: 'xl',
+      defaultTo: {
+        size3: 'sm',
+      },
+    },
+    {
+      color: 'gray',
+      size: 'xl',
+      color2: 'gray',
+      defaultTo: {
+        size3: 'sm',
+      },
+    },
+  ],
 });
 suite
   .add('default variants', () => {
-    evalute({});
+    evaluate({});
   })
   .add('record variant', () => {
-    evalute({ color: 'gray' });
+    evaluate({ color: 'gray' });
   })
   .add('function variant', () => {
-    evalute({ size: 'xl' });
+    evaluate({ size: 'xl' });
   })
   .add('multiple variants', () => {
-    evalute({
+    evaluate({
       color: 'gray',
       color2: 'black',
       color3: 'black',
       siz3: 'xl',
       size: 'xl',
       size2: 'xl',
+    });
+  })
+  .add('compound variants', () => {
+    compoundEvaluate({
+      color: 'gray',
+      color2: 'gray',
+      size: 'xl',
     });
   })
   // add listeners
@@ -63,8 +97,3 @@ suite
   })
   // run async
   .run({ async: true });
-
-// logs:
-// => RegExp#test x 4,161,532 +-0.99% (59 cycles)
-// => String#indexOf x 6,139,623 +-1.00% (131 cycles)
-// => Fastest is String#indexOf
