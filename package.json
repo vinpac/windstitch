@@ -17,7 +17,8 @@
     "lint": "tsdx lint",
     "prepare": "tsdx build",
     "size": "size-limit",
-    "analyze": "size-limit --why"
+    "analyze": "size-limit --why",
+    "ts:check": "tsc --noEmit"
   },
   "peerDependencies": {
     "react": ">=16"

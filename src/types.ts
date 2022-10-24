@@ -222,6 +222,7 @@ export interface ClassNameFactorConfig<
   className?: string;
   variants: Variants;
   defaultVariants?: DefaultVariants;
+  compoundVariants?: Array<CompoundVariants<Variants>>;
 }
 
 export type ClassNameFactor = {
