@@ -2,9 +2,9 @@
 sidebar_position: 5
 ---
 
-# Compound Variants
+# Compound variants
 
-To compound variants is define a custom class or custom defaults based on a selection of variants.
+To compound variants is to define a custom class or custom defaults based on a selection of variants.
 
 Look at the following example:
 
@@ -50,13 +50,14 @@ const Text = w.p(``, {
 });
 
 // Now we can use `theme` with no conflicts!
-//
-const Texts = <article>
-  <Text theme="h1" /> {/* <p class="font-bold text-8xl" */}
-  <Text theme="base" /> {/* <p class="text-8xl font-base"*/}
-  <Text theme="h1" weight="normal" /> {/* <p class="font-normal text-8xl" */}
-  <Text theme="h1" size="base" /> {/* <p class="text-base font-bold"*/}
-</p>
+const Texts = (
+  <article>
+    <Text theme="h1" /> {/* <p class="font-bold text-8xl" */}
+    <Text theme="base" /> {/* <p class="text-8xl font-base"*/}
+    <Text theme="h1" weight="normal" /> {/* <p class="font-normal text-8xl" */}
+    <Text theme="h1" size="base" /> {/* <p class="text-base font-bold"*/}
+  </article>
+);
 ```
 
 ## Usage

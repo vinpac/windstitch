@@ -22,7 +22,7 @@ function HomepageHeader() {
         <div className="flex items-center justify-center mx-auto space-x-4">
           <Link
             className="button button--secondary button--lg"
-            to="/docs/intro"
+            to="/docs/getting-started"
           >
             Get Started
           </Link>

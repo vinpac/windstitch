@@ -14,17 +14,17 @@ By providing Powerful Types through forward declarations, Windstitch aims to be 
 
 ## Performance
 
-### Zero Runtime
+### 🔥 Zero Runtime
 
 Windstitch is purely a `className` joiner function attached to a component. You do not need to add any Provider, Context or anything at all. Just install it and start using.
 
 ## Key Features
 
-### Variants
+### 💫 Variants
 
 [Stitches](https://stitches.dev/docs/introduction#variants) introduces variants as a first-class citizen, so you can design composable component APIs. Windstitch drinks from that to use the `variants` pattern as the form of declaring your styles.
 
-### Theming
+### 🎨 Theming
 
 [Theming is handled entirely by Tailwind](https://tailwindcss.com/docs/theme). Nothing different here
 
