@@ -10,7 +10,7 @@ Windstitch is a **1.4kB**, Simple Styling Library that helps you set **when** a 
 
 By providing Powerful Types through forward declarations, Windstitch aims to be simple yet powerful by limiting itself to be a organizer API, letting Tailwind handle the styling part.
 
-> Although **there's no connection between this lib and [TailwindCSS](https://tailwindcss.com/docs/installation)**, I HIGHLY recommend [installing and using it](<(https://tailwindcss.com/docs/installation)>) with this windstitch.
+> Although **there's no connection between this lib and [TailwindCSS](https://tailwindcss.com/docs/installation)**, I HIGHLY recommend [installing and using it](https://tailwindcss.com/docs/installation) with this windstitch.
 
 ## Instalation
 

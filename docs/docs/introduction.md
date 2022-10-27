@@ -30,7 +30,7 @@ Windstitch is purely a `className` joiner function attached to a component. You 
 
 ### Utils
 
-Windstitch offers you 2 way of declaring variants. You can either use a [`Record` or a `Function`](/docs/add-variants). So you can easily use create any utils that you want.
+Windstitch offers you 2 way of declaring variants. You can either use a [`Record` or a `Function`](/docs/variants). So you can easily use create any utils that you want.
 
 ```typescript
 const textSize = {
