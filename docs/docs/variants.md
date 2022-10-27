@@ -2,13 +2,15 @@
 sidebar_position: 4
 ---
 
-# Add Variants
+# Variants
 
-Variants are fields that create different versions of your component. Use them to power you components.
+Variants are properties that create different versions of your component.
 
 <img src="/img/example.gif" style={{ marginBottom: '24px' }} />
 
 ## Record Variants
+
+Record variants are simple objects mapping a key, which will become an accepted value for that variant, and a value which will be the className applied to the component.
 
 ```typescript
 import { w, W } from 'windstitch';
@@ -27,7 +29,7 @@ type ButtonProps = W.infer<typeof Button>;
 
 ## Function Variants
 
-For complex values, use a function style it. The prop type is inferred from the first argument type. Always remember to set it.
+For complex values, use a function to style it. The prop type is inferred from the first argument type. Always remember to set it.
 
 ```typescript
 import { w, W } from 'windstitch';
@@ -108,58 +110,4 @@ const StyledComponent = w(CustomComponent, {
 <StyledComponent active={true} />;
 // Renders <p class="text-indigo-500">I'm active</p>,
 // but gives a warning: "Received `true` for a non-boolean attribute `active`" in the console
-```
-
-## Reusing styles
-
-As prop types are inferred by your variants shape, you can easily reuse styles across components.
-
-### Record
-
-```typescript
-const textSize = {
-  small: 'text-sm',
-  large: 'text-lg',
-} as const;
-
-const Td = w.td('px-2 py-2', {
-  variants: {
-    textSize,
-  },
-});
-
-const Th = w.th('', {
-  variants: {
-    textSize,
-  },
-});
-
-// `textSize` is a required 'small' | 'large' prop on both components
-// <Td textSize="large" />
-// <Th textSize="small" />
-```
-
-### Function
-
-The same goes for functions:
-
-```typescript
-const isVisuallyEven = (value: boolean) =>
-  value ? 'bg-gray-100 dark:bg-gray-900' : 'bg-gray-200 dark:bg-gray-800';
-
-const Td = w.td('px-2 py-2', {
-  variants: {
-    isVisuallyEven,
-  },
-});
-
-const Th = w.th('', {
-  variants: {
-    isVisuallyEven,
-  },
-});
-
-// `isVisuallyEven` is a required boolean prop on both components
-// <Td isVisuallyEven={false} />
-// <Th isVisuallyEven={true} />
 ```
