@@ -4,9 +4,16 @@ import { evaluateClassName } from './utils';
 export const wx: W.ClassNameFactor = ({
   variants,
   defaultVariants,
+  compoundVariants,
   className,
 }) => {
   return props => {
-    return evaluateClassName(props, variants, defaultVariants, className);
+    return evaluateClassName(
+      props,
+      variants,
+      defaultVariants,
+      compoundVariants,
+      className
+    );
   };
 };

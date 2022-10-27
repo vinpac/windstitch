@@ -6,7 +6,7 @@ sidebar_position: 1
 
 <img src="/img/banner.jpg" style={{ marginBottom: '24px' }} />
 
-Windstitch is a **1.2kb**, Simple Styling Library that helps you set **when** a className should be applied to a component.
+Windstitch is a **1.4kB**, Simple Styling Library that helps you set **when** a className should be applied to a component.
 
 By providing Powerful Types through forward declarations, Windstitch aims to be simple yet powerful by limiting itself to be a organizer API, letting Tailwind handle the styling part.
 
@@ -14,23 +14,23 @@ By providing Powerful Types through forward declarations, Windstitch aims to be 
 
 ## Performance
 
-### Zero Runtime
+### 🔥 Zero Runtime
 
 Windstitch is purely a `className` joiner function attached to a component. You do not need to add any Provider, Context or anything at all. Just install it and start using.
 
 ## Key Features
 
-### Variants
+### 💫 Variants
 
 [Stitches](https://stitches.dev/docs/introduction#variants) introduces variants as a first-class citizen, so you can design composable component APIs. Windstitch drinks from that to use the `variants` pattern as the form of declaring your styles.
 
-### Theming
+### 🎨 Theming
 
 [Theming is handled entirely by Tailwind](https://tailwindcss.com/docs/theme). Nothing different here
 
 ### Utils
 
-Windstitch offers you 2 way of declaring variants. You can either use a [`Record` or a `Function`](/docs/add-variants). So you can easily use create any utils that you want.
+Windstitch offers you 2 way of declaring variants. You can either use a [`Record` or a `Function`](/docs/variants). So you can easily use create any utils that you want.
 
 ```typescript
 const textSize = {

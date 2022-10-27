@@ -11,6 +11,7 @@ export const styled: W.Styled = function(
     variants,
     transient,
     defaultProps,
+    compoundVariants,
     defaultVariants,
   }
 ) {
@@ -57,6 +58,7 @@ export const styled: W.Styled = function(
             props,
             variants || {},
             defaultVariants,
+            compoundVariants,
             defaultClassName
           ) || undefined
         }
