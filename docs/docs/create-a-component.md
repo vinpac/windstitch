@@ -55,7 +55,7 @@ export const Button = w.button(
     },
   }
 );
-export type ButtonProps = W.infer<typeof Button>;
+export type ButtonProps = W.Infer<typeof Button>;
 ```
 
 ### Render it
@@ -99,7 +99,7 @@ const Button = w.button('default-class', {
 
 Button.displayName = 'Button';
 
-export type ButtonProps = W.infer<typeof Button>;
+export type ButtonProps = W.Infer<typeof Button>;
 ```
 
 ## Using a Custom Component
@@ -123,5 +123,5 @@ const Checkbox = w(CustomComponent, {
 });
 Checkbox.displayName = 'Checkbox';
 
-export type CheckboxProps = W.infer<typeof Checkbox>;
+export type CheckboxProps = W.Infer<typeof Checkbox>;
 ```
