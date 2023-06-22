@@ -11,7 +11,7 @@ You can either create a component using a **tag** or using **another component**
 Use the `w` function to create a component and add styles to it.
 
 ```jsx line=3-11
-import { w, W } from '@wind/react';
+import { w, W } from 'windstitch';
 
 export const Button = w.button(
   `
