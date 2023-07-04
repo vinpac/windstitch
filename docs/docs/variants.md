@@ -23,7 +23,7 @@ const Button = w.button('bg-white', {
     },
   },
 });
-type ButtonProps = W.infer<typeof Button>;
+type ButtonProps = W.Infer<typeof Button>;
 // ButtonProps['color'] is 'gray' | 'red'
 ```
 
@@ -39,7 +39,7 @@ const Checkbox = w.input('bg-white', {
     checked: (yes: boolean) => (yes ? 'bg-indigo-500' : 'bg-white'),
   },
 });
-type CheckboxProps = W.infer<typeof Checkbox>;
+type CheckboxProps = W.Infer<typeof Checkbox>;
 // CheckboxProps['checked'] is boolean
 ```
 
@@ -63,7 +63,7 @@ const Checkbox = w.input('bg-white', {
     checked: false,
   },
 });
-type CheckboxProps = W.infer<typeof Checkbox>;
+type CheckboxProps = W.Infer<typeof Checkbox>;
 // CheckboxProps['checked'] is boolean | undefined
 // CheckboxProps['color'] is 'gray' | 'red' | undefined
 ```

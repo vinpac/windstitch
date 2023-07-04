@@ -71,7 +71,7 @@ const Button = w.button('text-sm', {
     size: 'small',
   },
 });
-type ButtonProps = W.infer<typeof Button>;
+type ButtonProps = W.Infer<typeof Button>;
 ```
 
 `ButtonProps` have all native `button` props with `{ color: 'red' | 'blue', size?: 'small' | 'large' }`. You can set the `as` to set which component should be rendered. It also changes the expected prop types
