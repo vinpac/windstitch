@@ -15,29 +15,29 @@ export const styled: W.Styled = function(
     defaultVariants,
   }
 ) {
-  const overrideVariantProps = variants
-    ? Object.fromEntries(Object.keys(variants).map(key => [key, undefined]))
-    : {};
-  const overrideTransientProps =
-    transient && variants
-      ? Object.fromEntries(
-          Object.keys(variants)
-            .filter(key => transient.includes(key))
-            .map(key => [key, undefined])
-        )
-      : {};
   const Component = <As extends ElementType>(
     { as: asProp, ...props }: W.StyledProps<As, any, any>,
     ref: any
   ): ReactElement<any, any> => {
     const Tag = (asProp || component) as ElementType;
     const isTag = typeof component === 'string';
+    const _props = {...props}
+
+    // remove all variants props if the component is a tag name
+    if(isTag) {
+      if(variants) {
+        Object.keys(variants).forEach(key => delete _props[key])
+      }
+    } else {
+      if(variants && transient) {
+        Object.keys(variants).filter(key => transient.includes(key)).forEach(key => delete _props[key])
+      }
+    }
+
     return (
       <Tag
         {...defaultProps}
-        {...props}
-        // remove all variants props if the component is a tag name
-        {...(isTag ? overrideVariantProps : overrideTransientProps)}
+        {..._props}
         ref={isTag ? ref : undefined}
         className={
           evaluateClassName(
